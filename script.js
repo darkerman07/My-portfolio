@@ -69,24 +69,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add scroll animation for sections
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver((entries) => {
+
+    // Scroll animation for .reveal elements
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('active');
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+
+    // Background color change on scroll
+    const sections = document.querySelectorAll('section[data-bg]');
+    const bgObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const newBg = entry.target.dataset.bg;
+                document.body.style.backgroundColor = newBg;
+            }
+        });
+    }, {
+        threshold: 0.5
     });
 
     sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
+        bgObserver.observe(section);
     });
 
     // Dynamic hero headline effect

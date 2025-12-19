@@ -1800,3 +1800,24 @@ footer {
         transition: none;
     }
 }
+
+/* Scroll Animation Classes & Body Transition Override */
+body {
+    transition: background-color 0.8s ease;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-100 { transition-delay: 0.1s; }
+.reveal-delay-200 { transition-delay: 0.2s; }
+.reveal-delay-300 { transition-delay: 0.3s; }
+.reveal-delay-400 { transition-delay: 0.4s; }
